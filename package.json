@@ -1,0 +1,44 @@
+{
+  "name": "cheapandnice",
+  "version": "0.2.0",
+  "description": "An online store like amazon",
+  "main": "server.js",
+  "keywords": [
+    "cheap",
+    "nice",
+    "shopping",
+    "store"
+  ],
+  "author": "Jorge Durango",
+  "license": "ISC",
+  "dependencies": {
+    "accesscontrol": "^2.2.1",
+    "babel-cli": "^6.26.0",
+    "bcrypt": "^4.0.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.2"
+  },
+  "scripts": {
+    "start": "nodemon",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
