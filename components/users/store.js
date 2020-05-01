@@ -42,9 +42,16 @@ async function findAndUpdateUser(username, password) {
   return await Model.findByIdAndUpdate(user._id, { accessToken });
 }
 
-async function getUser(userId) {
+async function getUser(username) {
+  //const user = await Model.findById(userId);
+  const user = await Model.findOne({ username });
+  //if (!user) throw new Error("User does not exist");
+  return user;
+}
+
+async function getById(userId) {
   const user = await Model.findById(userId);
-  if (!user) throw new Error("User does not exist");
+
   return user;
 }
 
@@ -52,4 +59,5 @@ module.exports = {
   createUser,
   findAndUpdateUser,
   getUser,
+  getById,
 };

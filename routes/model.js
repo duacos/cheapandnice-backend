@@ -18,3 +18,21 @@ module.exports.userModel = (payload, filter) => {
       return "Successful logout";
   }
 };
+
+module.exports.productModel = (payload, filter) => {
+  switch (filter) {
+    case "sendOne":
+      return {
+        title: payload.title,
+        description: payload.description,
+      };
+
+    case "sendAll":
+      return payload.map((product) => {
+        return {
+          title: product.title,
+          description: product.description,
+        };
+      });
+  }
+};

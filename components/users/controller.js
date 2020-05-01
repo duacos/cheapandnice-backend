@@ -5,18 +5,6 @@ const bcrypt = require("bcrypt");
 const response = require("../../routes/response");
 const { roles } = require("../../roles");
 
-function allowIfLoggedin(req, res, next) {
-  try {
-    const user = res.locals.loggedInUser;
-    if (!user)
-      response.error(req, res, "Login first", "Permission denied", 401);
-    req.user = user;
-    next();
-  } catch (error) {
-    next(error);
-  }
-}
-
 function grantAccess(action, resource) {
   return async (req, res, next) => {
     try {
@@ -69,26 +57,33 @@ async function login(username, password) {
   }
 }
 
-async function getUser(userId, currentUser) {
+async function getUser(username, currenUser) {
   try {
-    const user = await store.getUser(userId);
+    const user = await store.getUser(username);
 
-    /* if by any means somone manages to change the id 
-    return the currentUser and not a different user */
-    if (!currentUser) {
-      return user;
-    } else {
-      return currentUser;
-    }
-  } catch (err) {
-    throw new Error(err);
+    /* 
+      if the client sends a different user, 
+      nothing will happen; the same user will be returned
+    */
+    if (!currenUser.username) return user;
+    else return currenUser;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+async function getById(userId) {
+  try {
+    return await store.getById(userId);
+  } catch (error) {
+    throw new Error(error.message);
   }
 }
 
 module.exports = {
-  allowIfLoggedin,
   grantAccess,
   signup,
   login,
   getUser,
+  getById,
 };

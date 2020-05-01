@@ -1,7 +1,7 @@
 // the main purpose of this file is to handle all kinds of responses
 // every response goes through response -> controller -> model
 
-const { handleUsers, handleCookies } = require("./controller");
+const { handleUsers, handleCookies, handleProducts } = require("./controller");
 
 /* 
   The response.body could be anything (e.g a list [] , a single object {})  
@@ -12,6 +12,8 @@ exports.success = function (req, res, { data, model, filter, status }) {
     switch (model) {
       case "users":
         return handleUsers(req, res, data, filter, status);
+      case "products":
+        return handleProducts(req, res, data, filter, status);
       case "cookies":
         return handleCookies(req, res, data, filter, status);
     }
@@ -20,10 +22,10 @@ exports.success = function (req, res, { data, model, filter, status }) {
   }
 };
 
-exports.error = function (req, res, message, details, status) {
+exports.error = function (req, res, details, message, status) {
   console.log("[reason]: ", details);
   res.status(status || 500).send({
-    error: details,
+    error: message,
     body: "",
   });
 };
