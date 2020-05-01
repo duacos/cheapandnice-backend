@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const config = require("./config");
 const db = require("./db");
 const cookieParser = require("cookie-parser");
@@ -14,6 +15,13 @@ require("dotenv").config({
 const app = express();
 db(config.database_url);
 
+app.use(
+  cors({
+    origin: config.allowedDomain,
+    optionsSuccessStatus: 200,
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
@@ -24,4 +32,4 @@ app.use(cookieParser());
 routerNetwork(app);
 
 app.listen(config.port);
-console.log(`Server is running on http://${config.domain}:${config.port}`);
+console.log(`Server is running on port ${config.port}`);
