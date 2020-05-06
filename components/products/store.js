@@ -14,7 +14,9 @@ async function getFilteredProducts(filter) {
 }
 
 async function getSearchedProduct(searchValue) {
-  return await Model.find({ $text: { $search: searchValue } });
+  return await Model.find({ $text: { $search: searchValue } }).catch((e) => {
+    throw new Error(e.message);
+  });
 }
 
 async function getOneProduct(productId) {

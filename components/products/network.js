@@ -69,10 +69,11 @@ router.get("/:productId", async (req, res) => {
 });
 
 router.post("/filter/search", async (req, res) => {
-  const { search } = req.body;
+  const searchBody = req.body.search;
+  const searchQuery = req.query.search;
 
   try {
-    const products = await controller.getSearched(search);
+    const products = await controller.getSearched(searchBody, searchQuery);
 
     response.success(req, res, {
       data: products,

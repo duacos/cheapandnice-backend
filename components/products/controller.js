@@ -19,9 +19,13 @@ async function getFiltered(filter) {
   return await store.getFilteredProducts(filter);
 }
 
-async function getSearched(search) {
-  if (!search) throw new Error("Search term is missing");
-  return await store.getSearchedProduct(search);
+async function getSearched(searchBody, searchQuery) {
+  if (!searchQuery) {
+    if (!searchBody) return "";
+    return await store.getSearchedProduct(searchBody);
+  } else {
+    return await store.getSearchedProduct(searchQuery);
+  }
 }
 
 module.exports = {

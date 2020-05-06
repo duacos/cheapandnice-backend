@@ -23,8 +23,15 @@ module.exports.handleCookies = (req, res, data, filter, status) => {
 };
 
 module.exports.handleProducts = (req, res, data, filter, status) => {
-  res.status(status || 200).send({
-    error: "",
-    body: productModel(data, filter),
-  });
+  if (data) {
+    res.status(status || 200).send({
+      error: "",
+      body: productModel(data, filter),
+    });
+  } else {
+    res.status(status || 200).send({
+      error: "",
+      body: [],
+    });
+  }
 };
