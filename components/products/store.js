@@ -9,7 +9,22 @@ async function getAllProducts() {
   return await Model.find({});
 }
 
+async function getFilteredProducts(filter) {
+  return await Model.find({ type: filter });
+}
+
+async function getSearchedProduct(searchValue) {
+  return await Model.find({ $text: { $search: searchValue } });
+}
+
+async function getOneProduct(productId) {
+  return await Model.findById(productId);
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
+  getOneProduct,
+  getSearchedProduct,
+  getFilteredProducts,
 };

@@ -7,20 +7,26 @@ const schema = new Schema({
     required: true,
   },
 
+  price: { type: Number, required: true },
+
   description: { type: String, required: true },
 
   photos: [
-    {
-      type: String,
-    },
+    [
+      {
+        type: String,
+      },
+    ],
   ],
 
   type: {
     type: String,
-    require: true,
-    enum: ["fashion", "books", "art", "photography", "baby"],
+    required: true,
+    enum: ["fashion", "technology", "art", "photography"],
   },
 });
+
+schema.index({ title: "text" });
 
 const Product = mongoose.model("Product", schema);
 
