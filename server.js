@@ -12,6 +12,7 @@ require("dotenv").config({
   path: path.join(__dirname, ".env"),
 });
 
+const app = express();
 app.use(
   cors({
     origin: config.allowedDomain,
@@ -19,7 +20,6 @@ app.use(
     credentials: true,
   })
 );
-const app = express();
 db(config.database_url);
 
 app.use(function (req, res, next) {
