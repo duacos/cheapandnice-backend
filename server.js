@@ -14,7 +14,10 @@ require("dotenv").config({
 
 const app = express();
 
-var whitelist = config.allowedDomain.split(", ");
+var whitelist = [
+  "http://cheapandnice.herokuapp.com",
+  "https://cheapandnice.herokuapp.com",
+];
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -28,7 +31,7 @@ var corsOptions = {
 
 db(config.database_url);
 
-app.use(cors(corsOptions));
+app.app(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
