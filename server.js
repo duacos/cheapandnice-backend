@@ -31,5 +31,5 @@ app.use(cookieParser());
 
 routerNetwork(app);
 
-app.listen(config.port);
+app.listen(config.port || 80);
 console.log(`Server is running on port ${config.port}`);
