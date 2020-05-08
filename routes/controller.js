@@ -4,7 +4,6 @@ module.exports.handleUsers = (req, res, data, filter, status) => {
   res.cookie("session", data.accessToken, {
     secure: false,
     httpOnly: true,
-    sameSite: true,
   });
 
   res.status(status || 200).send({

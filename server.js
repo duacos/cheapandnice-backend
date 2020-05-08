@@ -13,15 +13,22 @@ require("dotenv").config({
 });
 
 const app = express();
+
+var whitelist = config.allowedDomain.split(", ");
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+
+app.use("*", cors(corsOptions));
 db(config.database_url);
 
-app.use(
-  cors({
-    origin: config.allowedDomain,
-    optionsSuccessStatus: 200,
-    credentials: true,
-  })
-);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
