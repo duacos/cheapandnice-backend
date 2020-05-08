@@ -26,7 +26,7 @@ var corsOptions = {
   credentials: true,
 };
 
-app.use("*", cors(corsOptions));
+app.options("*", cors(corsOptions));
 db(config.database_url);
 
 app.use(bodyParser.json());
