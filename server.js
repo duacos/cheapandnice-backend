@@ -12,26 +12,27 @@ require("dotenv").config({
   path: path.join(__dirname, ".env"),
 });
 
+app.use(
+  cors({
+    origin: config.allowedDomain,
+    optionsSuccessStatus: 200,
+    credentials: true,
+  })
+);
 const app = express();
-
-var whitelist = [
-  "http://cheapandnice.herokuapp.com",
-  "https://cheapandnice.herokuapp.com",
-];
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-};
-
 db(config.database_url);
 
-app.use(cors(corsOptions));
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", config.allowedDomain);
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
@@ -41,5 +42,5 @@ app.use(cookieParser());
 
 routerNetwork(app);
 
-app.listen(config.port || 80);
+app.listen(config.port);
 console.log(`Server is running on port ${config.port}`);
