@@ -6,7 +6,7 @@ require("dotenv").config({
 
 config = {
   port: process.env.PORT,
-  allowedDomain: process.env.DOMAIN,
+  origin: process.env.ORIGIN,
   database_url: process.env.DATABASE_URL,
 };
 
