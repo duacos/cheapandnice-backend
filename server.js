@@ -15,7 +15,7 @@ require("dotenv").config({
 const app = express();
 app.use(
   cors({
-    origin: config.allowedDomain,
+    origin: process.env.DOMAIN,
     optionsSuccessStatus: 200,
     credentials: true,
   })
@@ -31,5 +31,5 @@ app.use(cookieParser());
 
 routerNetwork(app);
 
-app.listen(config.port);
+app.listen(config.port || 8080);
 console.log(`Server is running on port ${config.port}`);
