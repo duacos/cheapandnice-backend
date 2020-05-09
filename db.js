@@ -1,6 +1,7 @@
 const db = require("mongoose");
 
 async function connect(uri) {
+  console.log(uri);
   try {
     await db.connect(uri, {
       useNewUrlParser: true,
