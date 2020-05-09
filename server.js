@@ -13,6 +13,7 @@ require("dotenv").config({
 });
 
 const app = express();
+db(config.database_url);
 app.use(
   cors({
     origin: process.env.ORIGIN,
@@ -20,7 +21,6 @@ app.use(
     credentials: true,
   })
 );
-db(config.database_url);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
