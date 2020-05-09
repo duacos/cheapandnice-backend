@@ -22,6 +22,9 @@ app.use(
   })
 );
 
+console.log("origin: ", process.env.ORIGIN);
+console.log("Database: ", process.env.DATABASE_URL);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
