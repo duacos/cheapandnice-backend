@@ -15,7 +15,7 @@ require("dotenv").config({
 const app = express();
 app.use(
   cors({
-    origin: process.env.DOMAIN,
+    origin: process.env.ORIGIN,
     optionsSuccessStatus: 200,
     credentials: true,
   })
@@ -24,9 +24,6 @@ db(config.database_url);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "../client"));
-app.use(express.static(path.join(__dirname, "../client")));
 app.use(cookieParser());
 
 routerNetwork(app);
