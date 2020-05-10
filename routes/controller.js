@@ -2,7 +2,7 @@ const { userModel, productModel } = require("./model");
 
 module.exports.handleUsers = (req, res, data, filter, status) => {
   res.cookie("session", data.accessToken, {
-    sameSite: "Lax",
+    sameSite: false,
     secure: false,
     httpOnly: true,
   });
