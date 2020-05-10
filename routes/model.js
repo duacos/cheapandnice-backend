@@ -49,6 +49,7 @@ module.exports.productModel = (payload, filter) => {
             };
           }),
           description: product.description,
+          type: product.type,
         };
       });
   }

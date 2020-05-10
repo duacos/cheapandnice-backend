@@ -48,7 +48,15 @@ async function getAllItems(userId) {
   return await Model.findOne({ userId }, { userId: 0 });
 }
 
+async function removeItemFromCart(cartId, productId) {
+  return await Model.updateOne({
+    _id: cartId,
+    $pull: { products: { productId: productId } },
+  });
+}
+
 module.exports = {
   addItemToCart,
   getAllItems,
+  removeItemFromCart,
 };

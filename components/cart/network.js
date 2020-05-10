@@ -18,7 +18,10 @@ router.post("/new", verifyTokenFromCookies, async (req, res) => {
       body: newItem,
     });
   } catch (error) {
-    throw new Error(error.message);
+    res.status(500).send({
+      error: error.message,
+      body: {},
+    });
   }
 });
 
@@ -26,12 +29,31 @@ router.get("/", verifyTokenFromCookies, async (req, res) => {
   const userId = res.locals.loggedInUser._id;
   try {
     const items = await controller.getItems(userId);
-    res.status(201).send({
+    res.status(200).send({
       error: "",
       body: items,
     });
   } catch (error) {
-    throw new Error(error.message);
+    res.status(600).send({
+      error: error.message,
+      body: [],
+    });
+  }
+});
+
+router.patch("/remove/product", verifyTokenFromCookies, async (req, res) => {
+  const { cartId, productId } = req.body;
+  try {
+    const cart = await controller.removeItem(cartId, productId);
+    res.status(201).send({
+      error: "",
+      body: cart,
+    });
+  } catch (error) {
+    res.status(501).send({
+      error: e.message,
+      body: {},
+    });
   }
 });
 

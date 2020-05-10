@@ -23,9 +23,9 @@ router.post("/new", verifyTokenFromCookies, async (req, res) => {
 
 router.get("/list", async (req, res) => {
   try {
-    const product = await controller.getProducts();
+    const products = await controller.getProducts();
     response.success(req, res, {
-      data: product,
+      data: products,
       model: "products",
       filter: "sendAll",
       status: 200,
