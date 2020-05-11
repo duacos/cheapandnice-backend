@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const userController = require("../users/controller");
+const response = require("../../routes/response");
 
 module.exports.verifyTokenFromCookies = async (req, res, next) => {
   if (req.cookies.session) {
