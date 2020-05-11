@@ -62,8 +62,8 @@ async function getUser(username, currenUser) {
     const user = await store.getUser(username);
 
     /* 
-      if the client sends a different user, 
-      nothing will happen; the same user will be returned
+      if the client sends a different user
+      the same user will be returned
     */
     if (!currenUser.username) return user;
     else return currenUser;

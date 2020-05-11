@@ -45,14 +45,17 @@ async function addItemToCart({ productId, quantity }, currentUser) {
 }
 
 async function getAllItems(userId) {
-  return await Model.findOne({ userId }, { userId: 0 });
+  return await Model.findOne({ userId });
 }
 
 async function removeItemFromCart(cartId, productId) {
-  return await Model.updateOne({
-    _id: cartId,
-    $pull: { products: { productId: productId } },
-  });
+  return await Model.updateOne(
+    {
+      _id: cartId,
+    },
+    { $pull: { products: { productId: productId } } },
+    { multi: true }
+  );
 }
 
 module.exports = {

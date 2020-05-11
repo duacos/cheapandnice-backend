@@ -43,9 +43,7 @@ async function findAndUpdateUser(username, password) {
 }
 
 async function getUser(username) {
-  //const user = await Model.findById(userId);
   const user = await Model.findOne({ username });
-  //if (!user) throw new Error("User does not exist");
   return user;
 }
 

@@ -49,15 +49,14 @@ router.post("/logout", verifyTokenFromCookies, function (req, res) {
   }
 });
 // read one user
-router.get("/store", verifyTokenFromCookies, async function (req, res) {
+router.get("/current", verifyTokenFromCookies, async function (req, res) {
   const username = req.body.username;
   const currentUser = res.locals.loggedInUser;
-
   try {
     const user = await controller.getUser(username, currentUser);
 
     response.success(req, res, {
-      data: user,
+      data: currentUser,
       model: "users",
       filter: "sendOne",
       status: 200,

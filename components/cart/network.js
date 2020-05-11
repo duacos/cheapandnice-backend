@@ -34,7 +34,7 @@ router.get("/", verifyTokenFromCookies, async (req, res) => {
       body: items,
     });
   } catch (error) {
-    res.status(600).send({
+    res.status(500).send({
       error: error.message,
       body: [],
     });
@@ -43,17 +43,19 @@ router.get("/", verifyTokenFromCookies, async (req, res) => {
 
 router.patch("/remove/product", verifyTokenFromCookies, async (req, res) => {
   const { cartId, productId } = req.body;
+
   try {
     const cart = await controller.removeItem(cartId, productId);
-    res.status(201).send({
+    res.status(200).send({
       error: "",
       body: cart,
     });
   } catch (error) {
-    res.status(501).send({
-      error: e.message,
+    res.status(500).send({
+      error: "Internal error",
       body: {},
     });
+    throw new Error(error.message);
   }
 });
 
