@@ -1,15 +1,20 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-##Main libraries
+## Main libraries
 
 - [JWT](https://github.com/auth0/node-jsonwebtoken)
 - [Express](https://github.com/expressjs/express)
 - [Cookie-parser](https://github.com/expressjs/cookie-parser)
 
-##Technologies
+## Technologies
 
 - JWT
 - Nodejs + express
 - Mongo Atlas
+
+### Accounts
+
+You can either create a new account or use
+
+username: "condorlabs"
+password: 123456
 
 Frontend: https://github.com/duacos/cheapandnice-frontend
