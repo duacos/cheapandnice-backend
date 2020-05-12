@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { verifyTokenFromCookies } = require("../helpers");
-const { productModel } = require("../../routes/model");
+const { productModel } = require("../helpers/model");
 const controller = require("./controller");
 
 router.post("/new", verifyTokenFromCookies, async (req, res) => {

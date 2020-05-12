@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const controller = require("./controller");
 const { verifyTokenFromCookies } = require("../helpers");
-const { userModel } = require("../../routes/model");
+const { userModel } = require("../helpers/model");
 
 router.post("/signup", async function (req, res) {
   const { username, password, role } = req.body;

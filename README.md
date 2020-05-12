@@ -15,6 +15,7 @@
 You can either create a new account or use
 
 username: "condorlabs"
+
 password: 123456
 
 Frontend: https://github.com/duacos/cheapandnice-frontend

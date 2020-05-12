@@ -14,9 +14,9 @@ require("dotenv").config({
 
 const app = express();
 
-// Mongo atlas configuration -> see db.js
+// Mongo atlas configuration, see db.js
 db(config.database_url);
-
+// cross-origin config
 app.use(
   cors({
     origin: config.origin,
@@ -28,7 +28,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// Main routes see routes/network.js
+// Main routes, see routes/network.js
 routerNetwork(app);
 
 app.listen(config.port || 8080);
