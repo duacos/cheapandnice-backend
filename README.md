@@ -1,3 +1,7 @@
+## General design
+
+![](files/diagram.png)
+
 ## Main libraries
 
 - [JWT](https://github.com/auth0/node-jsonwebtoken)
@@ -14,7 +18,7 @@
 
 You can either create a new account or use
 
-username: "condorlabs"
+username: condorlabs
 
 password: 123456
 
