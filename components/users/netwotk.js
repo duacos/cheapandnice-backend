@@ -36,16 +36,23 @@ router.post("/login", async function (req, res) {
   }
 });
 
-router.post("/logout", verifyTokenFromCookies, function (req, res) {
+router.delete("/logout", verifyTokenFromCookies, function (req, res) {
   try {
-    response.success(req, res, {
-      data: {},
-      model: "cookies",
-      filter: "destroyCookie",
-      status: 200,
+    res.cookie("session", "", {
+      expires: new Date(0),
+      domain: process.env.DOMAIN,
+      path: "/",
+    });
+
+    res.status(200).send({
+      error: "",
+      body: "logout successful",
     });
   } catch (err) {
-    response.error(req, res, "Unexpected Error", err, 404);
+    res.status(500).send({
+      error: error.message,
+      body: [],
+    });
   }
 });
 // read one user
