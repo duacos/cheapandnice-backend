@@ -1,6 +1,5 @@
 /* 
-  this is the model or the structure of our response 
-  here we just make sure we don't expose unnecessary data to the client
+ The model is simply a representation of how data will be sent
 */
 
 module.exports.userModel = (payload, filter) => {

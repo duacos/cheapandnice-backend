@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const controller = require("./controller");
 const { verifyTokenFromCookies } = require("../helpers");
+const { userModel } = require("../../routes/model");
 
 router.post("/signup", async function (req, res) {
   const { username, password, role } = req.body;
@@ -17,11 +18,7 @@ router.post("/signup", async function (req, res) {
 
     res.status(201).send({
       error: "",
-      body: {
-        _id: newUser._id,
-        username: newUser.username,
-        role: newUser.role,
-      },
+      body: userModel(newUser, "sendOne"),
     });
   } catch (e) {
     res.status(500).send({ error: error.message, body: [] });
@@ -41,13 +38,13 @@ router.post("/login", async function (req, res) {
 
     res.status(200).send({
       error: "",
-      body: {
-        username: user.username,
-        _id: user._id,
-      },
+      body: userModel(user, "sendOne"),
     });
   } catch (error) {
-    res.status(500).send({ error: error.message, body: [] });
+    res.status(404).send({
+      error: "There was a problem with your authentication",
+      body: [],
+    });
   }
 });
 
@@ -61,7 +58,7 @@ router.delete("/logout", verifyTokenFromCookies, function (req, res) {
 
     res.status(200).send({
       error: "",
-      body: "logout successful",
+      body: "logout was successful",
     });
   } catch (err) {
     res.status(500).send({ error: error.message, body: [] });
@@ -73,11 +70,7 @@ router.get("/current", verifyTokenFromCookies, async function (req, res) {
   try {
     res.status(200).send({
       error: "",
-      body: {
-        _id: currentUser._id,
-        username: currentUser.username,
-        role: currentUser.role,
-      },
+      body: userModel(currentUser, "sendOne"),
     });
   } catch (e) {
     res.status(500).send({ error: error.message, body: [] });

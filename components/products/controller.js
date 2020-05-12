@@ -19,9 +19,12 @@ async function getFiltered(filter) {
   return await store.getFilteredProducts(filter);
 }
 
+// read form the body or from a query
 async function getSearched(searchBody, searchQuery) {
+  //  if query isn't provided, read body
   if (!searchQuery) {
-    if (!searchBody) return "";
+    // if body is empty return empty string
+    if (!searchBody) return [];
     return await store.getSearchedProduct(searchBody);
   } else {
     return await store.getSearchedProduct(searchQuery);

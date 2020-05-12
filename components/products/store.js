@@ -6,7 +6,10 @@ async function createProduct(product) {
 }
 
 async function getAllProducts() {
-  return await Model.find({});
+  return await Model.find(
+    {},
+    { _id: 1, title: 1, description: 1, photos: 1, type: 1, price: 1 }
+  );
 }
 
 async function getFilteredProducts(filter) {

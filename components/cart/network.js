@@ -18,13 +18,10 @@ router.post("/new", verifyTokenFromCookies, async (req, res) => {
       body: newItem,
     });
   } catch (error) {
-    res.status(500).send({
-      error: error.message,
-      body: {},
-    });
+    res.status(500).send({ error: error.message, body: {} });
   }
 });
-
+// get shopping cart by user id
 router.get("/", verifyTokenFromCookies, async (req, res) => {
   const userId = res.locals.loggedInUser._id;
   try {
@@ -34,10 +31,7 @@ router.get("/", verifyTokenFromCookies, async (req, res) => {
       body: items,
     });
   } catch (error) {
-    res.status(500).send({
-      error: error.message,
-      body: [],
-    });
+    res.status(500).send({ error: error.message, body: {} });
   }
 });
 
@@ -51,11 +45,7 @@ router.patch("/remove/product", verifyTokenFromCookies, async (req, res) => {
       body: cart,
     });
   } catch (error) {
-    res.status(500).send({
-      error: "Internal error",
-      body: {},
-    });
-    throw new Error(error.message);
+    res.status(500).send({ error: error.message, body: {} });
   }
 });
 

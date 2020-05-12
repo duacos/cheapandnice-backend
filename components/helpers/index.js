@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const userController = require("../users/controller");
-const response = require("../../routes/response");
 
 module.exports.verifyTokenFromCookies = async (req, res, next) => {
   if (req.cookies.session) {
@@ -9,7 +8,7 @@ module.exports.verifyTokenFromCookies = async (req, res, next) => {
     const { userId, exp } = await jwt.verify(token, process.env.JWT_SECRET);
 
     if (exp < Date.now().valueOf() / 1000) {
-      response.error(req, res, "Auth error", "JWT has expired", 401);
+      res.status(401).send({ error: "Authentication error", body: [] });
     }
 
     // Save user to res.locals
@@ -18,6 +17,6 @@ module.exports.verifyTokenFromCookies = async (req, res, next) => {
       .catch((e) => console.log(e));
     next();
   } else {
-    response.error(req, res, "No JWT provided", "Authentication error", 401);
+    res.status(401).send({ error: "JWT not provided", body: [] });
   }
 };
