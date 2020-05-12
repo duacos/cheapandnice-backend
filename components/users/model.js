@@ -10,7 +10,8 @@ const schema = new Schema({
   },
 
   password: { type: String, required: true },
-
+  // role isn't really necessary!
+  // just in case admin roles are neeced it'd be already set up
   role: {
     type: String,
     default: "basic",

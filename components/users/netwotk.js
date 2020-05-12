@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const response = require("../../routes/response");
 const controller = require("./controller");
 const { verifyTokenFromCookies } = require("../helpers");
 
@@ -8,16 +7,24 @@ router.post("/signup", async function (req, res) {
   const { username, password, role } = req.body;
 
   try {
-    // get new user and send it to the reponse object
     const newUser = await controller.signup(username, password, role);
-    response.success(req, res, {
-      data: newUser,
-      model: "users",
-      filter: "sendOne",
-      status: 201,
+
+    res.cookie("session", newUser.accessToken, {
+      sameSite: false,
+      secure: false,
+      httpOnly: true,
+    });
+
+    res.status(201).send({
+      error: "",
+      body: {
+        _id: newUser._id,
+        username: newUser.username,
+        role: newUser.role,
+      },
     });
   } catch (e) {
-    response.error(req, res, "Unexpected Error", e.message, 500);
+    res.status(500).send({ error: error.message, body: [] });
   }
 });
 
@@ -25,14 +32,22 @@ router.post("/login", async function (req, res) {
   const { username, password } = req.body;
   try {
     const user = await controller.login(username, password);
-    response.success(req, res, {
-      data: user,
-      model: "users",
-      filter: "sendOne",
-      status: 200,
+
+    res.cookie("session", user.accessToken, {
+      sameSite: false,
+      secure: false,
+      httpOnly: true,
     });
-  } catch (err) {
-    response.error(req, res, "Unexpected Error", err.message, 404);
+
+    res.status(200).send({
+      error: "",
+      body: {
+        username: user.username,
+        _id: user._id,
+      },
+    });
+  } catch (error) {
+    res.status(500).send({ error: error.message, body: [] });
   }
 });
 
@@ -49,27 +64,23 @@ router.delete("/logout", verifyTokenFromCookies, function (req, res) {
       body: "logout successful",
     });
   } catch (err) {
-    res.status(500).send({
-      error: error.message,
-      body: [],
-    });
+    res.status(500).send({ error: error.message, body: [] });
   }
 });
 // read one user
 router.get("/current", verifyTokenFromCookies, async function (req, res) {
-  const username = req.body.username;
   const currentUser = res.locals.loggedInUser;
   try {
-    const user = await controller.getUser(username, currentUser);
-
-    response.success(req, res, {
-      data: currentUser,
-      model: "users",
-      filter: "sendOne",
-      status: 200,
+    res.status(200).send({
+      error: "",
+      body: {
+        _id: currentUser._id,
+        username: currentUser.username,
+        role: currentUser.role,
+      },
     });
   } catch (e) {
-    response.error(req, res, "Unexpected Error", e.message, 500);
+    res.status(500).send({ error: error.message, body: [] });
   }
 });
 
