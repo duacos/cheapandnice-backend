@@ -10,14 +10,26 @@ router.post("/new", verifyTokenFromCookies, async (req, res) => {
 
   try {
     const newProduct = await controller.addNewProduct(product);
-    response.success(req, res, {
-      data: newProduct,
-      model: "products",
-      filter: "sendOne",
-      status: 201,
+
+    res.status(201).send({
+      error: "",
+      body: {
+        _id: newProduct._id,
+        title: newProduct.title,
+        price: newProduct.price,
+        photos: newProduct.photos.map((photoArray) => {
+          return {
+            fullsize: photoArray[0],
+            thumbnail: photoArray[1],
+          };
+        }),
+
+        description: newProduct.description,
+        type: newProduct.type,
+      },
     });
   } catch (error) {
-    throw new Error(error.message);
+    res.status(500).send({ error: error.message, body: [] });
   }
 });
 
