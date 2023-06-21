@@ -1,13 +1,12 @@
-const db = require("mongoose");
+const mongoose = require("mongoose");
 
 async function connect(uri) {
   try {
-    await db.connect(uri, {
+    await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
     });
+    console.log("Connected to MongoDB successfully!");
   } catch (err) {
     console.error("[db]", err.message);
   }
